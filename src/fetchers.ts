@@ -2,13 +2,13 @@ export type Task = {
   id: string;
   title: string;
   createdAt: number;
-  startedAt: number;
-  finishedAt: number;
+  startedAt?: number;
+  finishedAt?: number;
 };
 
-type TaskResponse = {
+export type TaskResponse = {
   tasks: Task[];
 };
 
-export const fetchPeople = (url: string) =>
+export const fetchTasks = (url: string) =>
   fetch(url).then<TaskResponse>((r) => r.json());
