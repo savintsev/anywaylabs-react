@@ -4,6 +4,13 @@ import App from './App';
 import { makeServer } from './mirage/server';
 import './assets/main.css';
 
+/* mirage.js fake api  */
+declare var process: {
+  env: {
+    NODE_ENV: string
+  }
+};
+
 const environment = process.env.NODE_ENV;
 
 if (environment !== 'production') {
