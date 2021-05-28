@@ -5,12 +5,14 @@ import {
   Server,
   ModelInstance
 } from 'miragejs';
+
 import {
   randomEmoji,
   randomDate,
   randomBoolean
-} from './helper';
-import { Task } from '../fetchers';
+} from './helpers';
+
+import { TaskType } from '../types';
 
 type FactoryParams<Data> = {
   [key in keyof Partial<Data>]: () => Data[key];
@@ -23,11 +25,11 @@ export function makeServer({ environment = 'test' } = {}) {
     environment,
 
     models: {
-      task: Model.extend<Partial<Task>>({}),
+      task: Model.extend<Partial<TaskType>>({}),
     },
 
     factories: {
-      task: Factory.extend<FactoryParams<Task>>({
+      task: Factory.extend<FactoryParams<TaskType>>({
         title() {
           return `Task Title ${randomEmoji()}`;
         },
@@ -39,15 +41,15 @@ export function makeServer({ environment = 'test' } = {}) {
         afterCreate(task) {
           task.update({
             startedAt: randomBoolean() ? randomDate(
-              new Date(task.createdAt),
-              new Date(2021, 11, 30)
+              new Date(2021, 0, 1),
+              new Date(task.createdAt)
             ).getTime() : undefined,
           });
 
           task.update({
             finishedAt: randomBoolean() && task.startedAt ? randomDate(
               new Date(task.startedAt),
-              new Date(2021, 11, 31)
+              new Date()
             ).getTime() : undefined
           });
         },

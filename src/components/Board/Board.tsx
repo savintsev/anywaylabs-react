@@ -1,15 +1,20 @@
 import React from 'react';
-import Panel from './Panel';
-import Button from './Button';
-import { BoardProps } from '../types';
+
+import {
+  Panel,
+  Button
+} from '../';
+
 import {
   createdTasks,
   startedTasks,
   finishedTasks,
   printTask
-} from '../helpers';
+} from '../../helpers';
 
-export const Board: React.FC<BoardProps> = ({ tasks }) => {
+import { BoardProps } from '../../types';
+
+export const Board: React.FunctionComponent<BoardProps> = ({ tasks }) => {
   const createdItems = tasks && tasks
     .filter(createdTasks)
     .map(printTask);

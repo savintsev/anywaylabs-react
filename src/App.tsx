@@ -1,12 +1,17 @@
 import React from 'react';
-import useSWR from 'swr';
-import Board from './components/Board';
-import { ErrorAlert, LoadingAlert } from './components/alerts';
-import { fetchTasks } from './fetchers';
+
+import {
+  Board,
+  ErrorAlert,
+  LoadingAlert
+} from './components';
+
+import { useTasks } from './helpers';
+
 import 'bootstrap/dist/css/bootstrap.css';
 
-export const App: React.FC = () => {
-  const { data, error } = useSWR('/api/tasks', fetchTasks);
+export const App: React.FunctionComponent = () => {
+  const { tasks, isLoading, error } = useTasks();
 
   return (
     <div className="container p-3 d-flex flex-column">
@@ -14,15 +19,15 @@ export const App: React.FC = () => {
       <p><small>Just some good deeds</small></p>
 
       {Boolean(error) &&
-        <ErrorAlert message={error.message} />
+        <ErrorAlert message={error?.message} />
       }
 
-      {Boolean(!error && !data) &&
+      {Boolean(isLoading) &&
         <LoadingAlert />
       }
 
-      {Boolean(!error && data) &&
-        <Board tasks={data?.tasks} />
+      {Boolean(tasks) &&
+        <Board tasks={tasks} />
       }
     </div>
   )

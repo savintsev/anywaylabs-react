@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import App from './App';
+
 import { makeServer } from './mirage/server';
+
 import './assets/main.css';
 
 /* mirage.js fake api  */

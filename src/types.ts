@@ -2,14 +2,23 @@ export type BoardProps = {
   tasks?: TaskType[];
 };
 
+export type CostProps = {
+  startedAt?: number;
+  finishedAt?: number;
+};
+
 export type ErrorAlertProps = {
-  message: string;
+  message?: string;
 };
 
 export type PanelProps = {
   title: string;
   children?: React.ReactNode;
   controls?: React.ReactNode;
+};
+
+export type TimerProps = {
+  startedAt?: number;
 };
 
 export type TaskType = {
@@ -29,5 +38,22 @@ export interface TasksFilter {
 };
 
 export interface TaskPrinter {
-  (value: TaskType, index: number, array: TaskType[]): JSX.Element
-}
+  (value: TaskType, index: number, array: TaskType[]): JSX.Element;
+};
+
+export interface TasksHook {
+  (): {
+    tasks?: TaskType[];
+    isLoading?: boolean;
+    error?: Error;
+  };
+};
+
+export interface TimerHook {
+  (startedAt: number): {
+    seconds: number;
+    minutes: number;
+    hours: number;
+    days: number;
+  };
+};

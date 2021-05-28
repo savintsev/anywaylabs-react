@@ -1,7 +1,8 @@
 import React, { Children } from 'react';
-import { PanelProps } from '../types';
 
-export const Panel: React.FC<PanelProps> = ({
+import { PanelProps } from '../../types';
+
+export const Panel: React.FunctionComponent<PanelProps> = ({
   title,
   children,
   controls
@@ -12,7 +13,7 @@ export const Panel: React.FC<PanelProps> = ({
     <div className="col d-flex">
       <section className="flex-grow-1 p-3 border bg-light rounded">
         <header className="d-flex">
-          <span className="rounded-circle bg-info px-2 py-0">
+          <span className="rounded-circle bg-info px-2 py-0 ratio ratio-1x1">
             {tasksCount}
           </span>
 
