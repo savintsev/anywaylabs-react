@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { RUB_PER_HOUR } from '../../constants';
 
