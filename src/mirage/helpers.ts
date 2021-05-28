@@ -4,11 +4,9 @@ export const randomEmoji = (): string => {
   return items[Math.floor(Math.random() * items.length)];
 };
 
-export const randomDate = (from: Date, to: Date): Date => {
-  return new Date(
-    from.getTime() + Math.random() * (to.getTime() - from.getTime())
-  );
-};
+export const randomDate = (from: Date, to: Date): Date => new Date(
+  from.getTime() + Math.random() * (to.getTime() - from.getTime())
+);
 
 export const randomBoolean = (): boolean => Math.random() < 0.5;
 

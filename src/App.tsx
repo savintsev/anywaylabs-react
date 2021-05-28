@@ -30,7 +30,7 @@ export const App: React.FunctionComponent = () => {
         <Board tasks={tasks} />
       }
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

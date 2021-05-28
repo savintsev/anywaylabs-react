@@ -1,15 +1,15 @@
 import {
   createServer,
-  Model,
   Factory,
+  Model,
+  ModelInstance,
   Server,
-  ModelInstance
 } from 'miragejs';
 
 import {
-  randomEmoji,
+  randomBoolean,
   randomDate,
-  randomBoolean
+  randomEmoji,
 } from './helpers';
 
 import { TaskType } from '../types';
@@ -43,14 +43,14 @@ export function makeServer({ environment = 'test' } = {}) {
             startedAt: randomBoolean() ? randomDate(
               new Date(2021, 0, 1),
               new Date(task.createdAt)
-            ).getTime() : undefined,
+            ).getTime() : null,
           });
 
           task.update({
             finishedAt: randomBoolean() && task.startedAt ? randomDate(
               new Date(task.startedAt),
               new Date()
-            ).getTime() : undefined
+            ).getTime() : null
           });
         },
       }),
@@ -66,4 +66,4 @@ export function makeServer({ environment = 'test' } = {}) {
       this.get('tasks');
     },
   });
-};
+}

@@ -8,7 +8,7 @@ import { makeServer } from './mirage/server';
 import './assets/main.css';
 
 /* mirage.js fake api  */
-declare var process: {
+declare const process: {
   env: {
     NODE_ENV: string
   }

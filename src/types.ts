@@ -1,7 +1,3 @@
-export type BoardProps = {
-  tasks?: TaskType[];
-};
-
 export type CostProps = {
   startedAt?: number;
   finishedAt?: number;
@@ -25,8 +21,12 @@ export type TaskType = {
   id: string;
   title: string;
   createdAt: number;
-  startedAt?: number;
-  finishedAt?: number;
+  startedAt: number | null;
+  finishedAt: number | null;
+};
+
+export type BoardProps = {
+  tasks?: TaskType[];
 };
 
 export type TaskResponse = {
@@ -35,11 +35,11 @@ export type TaskResponse = {
 
 export interface TasksFilter {
   (task: TaskType): boolean;
-};
+}
 
 export interface TaskPrinter {
   (value: TaskType, index: number, array: TaskType[]): JSX.Element;
-};
+}
 
 export interface TasksHook {
   (): {
@@ -47,7 +47,7 @@ export interface TasksHook {
     isLoading?: boolean;
     error?: Error;
   };
-};
+}
 
 export interface TimerHook {
   (startedAt: number): {
@@ -56,4 +56,4 @@ export interface TimerHook {
     hours: number;
     days: number;
   };
-};
+}

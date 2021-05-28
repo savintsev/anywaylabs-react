@@ -8,7 +8,7 @@ import {
   TaskPrinter,
   TaskResponse,
   TasksHook,
-  TimerHook
+  TimerHook,
 } from './types';
 
 export const createdTasks: TasksFilter = task => Boolean(task.createdAt && !task.startedAt && !task.finishedAt);
@@ -34,8 +34,7 @@ export const printTask: TaskPrinter = ({
   />
 );
 
-export const fetchTasks = (url: string) =>
-  fetch(url).then<TaskResponse>((r) => r.json());
+export const fetchTasks = (url: string) => fetch(url).then<TaskResponse>(res => res.json());
 
 export const useTasks: TasksHook = () => {
   const { data, error } = useSWR('/api/tasks', fetchTasks);
@@ -44,10 +43,10 @@ export const useTasks: TasksHook = () => {
     tasks: data?.tasks,
     isLoading: !error && !data,
     error,
-  }
+  };
 };
 
-export const useTimer: TimerHook = (startedAt) => {
+export const useTimer: TimerHook = startedAt => {
   const [time, setTime] = useState({
     seconds: 0,
     minutes: 0,
