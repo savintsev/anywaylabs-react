@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const Button: React.FunctionComponent = ({ children }) => (
-  <button type="button" className="btn btn-primary">
+  <button type="button" className="btn btn-primary btn-sm">
     {children}
   </button>
 );

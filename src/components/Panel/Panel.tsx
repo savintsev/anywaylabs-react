@@ -7,19 +7,22 @@ export const Panel: React.FunctionComponent<PanelProps> = ({
   children,
   controls
 }) => {
-  const tasksCount: number = Children.toArray(children).length;
+  const childrenCount: number = Children.toArray(children).length;
+  const tasksCount: string = childrenCount > 9 ? '9+' : `${childrenCount}`;
 
   return (
     <div className="col d-flex">
-      <section className="flex-grow-1 p-3 border bg-light rounded">
-        <header className="d-flex">
-          <span className="rounded-circle bg-info px-2 py-0 ratio ratio-1x1">
-            {tasksCount}
+      <section className="panel flex-grow-1 p-2 border rounded">
+        <header className="d-flex align-items-center mb-2">
+          <span className="counter rounded-circle ratio ratio-1x1 ">
+            <span className="d-inline-flex justify-content-center align-items-center">
+              {tasksCount}
+            </span>
           </span>
 
-          <h3 className="h6">
+          <h2 className="fs-6 mb-0 ms-2">
             {title}
-          </h3>
+          </h2>
         </header>
 
         {Boolean(children) &&
@@ -29,7 +32,7 @@ export const Panel: React.FunctionComponent<PanelProps> = ({
         }
 
         {Boolean(controls) &&
-          <div role="complementary">
+          <div role="complementary" className="position-sticky bottom-0">
             {controls}
           </div>
         }

@@ -20,7 +20,7 @@ export const Cost: React.FunctionComponent<CostProps> = ({ startedAt, finishedAt
   ).format(costNumber);
 
   return (
-    <span>{costFormatted}</span>
+    <small className="cost">{costFormatted}</small>
   );
 };
 

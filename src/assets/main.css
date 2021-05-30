@@ -1,3 +1,7 @@
+body {
+  color: #252a2f;
+}
+
 #root {
   display: flex;
   min-height: 100vh;
@@ -6,4 +10,32 @@
   padding-right: constant(safe-area-inset-right);
   padding-bottom: constant(safe-area-inset-bottom);
   padding-left: constant(safe-area-inset-left);
+}
+
+.subtitle {
+  color: #586169;
+}
+
+.panel {
+  background: #f6f8fa;
+  border-color: #eaecf0 !important;
+}
+
+.counter {
+  width: 20px;
+  font-size: 0.8125em;
+  font-weight: 500;
+  line-height: 1;
+  background: #e4e7ea;
+  color: #6b747d;
+}
+
+.task {
+  min-height: 69px;
+}
+
+.icon,
+.timer,
+.cost {
+  color: #6b747d;
 }
