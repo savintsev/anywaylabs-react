@@ -46,6 +46,90 @@ export const useTasks: TasksHook = () => {
   };
 };
 
+export const useTasks1 = () => {
+  const controller = new AbortController();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const [data, setData] = useState();
+  const [requestOptions, setRequestOptions] = useState({
+    signal: controller.signal,
+  });
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/api/tasks', requestOptions);
+
+      setData(await response.json());
+    } catch (err) {
+      setError(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const addTask = (title: string) => {
+    setRequestOptions(state => ({
+      ...state,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title })
+    }));
+
+    fetchData();
+  };
+
+  const startTask = (id: string, isStart: boolean) => {
+    setRequestOptions(state => ({
+      ...state,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, isStart })
+    }));
+
+    fetchData();
+  };
+
+  const resolveTask = (id: string, isResolve: boolean) => {
+    setRequestOptions(state => ({
+      ...state,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, isResolve })
+    }));
+
+    fetchData();
+  };
+
+  useEffect(() => {
+
+    setIsLoading(true);
+
+    (async () => {
+      try {
+        const response = await fetch('/api/tasks', requestOptions);
+
+        setData(await response.json());
+      } catch (err) {
+        setError(err);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+
+    return () => controller?.abort();
+  }, []);
+
+  return {
+    tasks: data?.tasks,
+    isLoading,
+    error,
+    addTask,
+    startTask,
+    resolveTask,
+  };
+};
+
 export const useTimer: TimerHook = startedAt => {
   const [time, setTime] = useState({
     seconds: 0,

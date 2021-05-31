@@ -2,7 +2,7 @@ import React from 'react';
 
 import {
   Panel,
-  Button
+  NewTask
 } from '../';
 
 import {
@@ -32,7 +32,7 @@ export const Board: React.FunctionComponent<BoardProps> = ({ tasks }) => {
       <Panel
         title="To do"
         controls={
-          <Button>New task</Button>
+          <NewTask />
         }
       >
         {createdItems}

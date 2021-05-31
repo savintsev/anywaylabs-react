@@ -63,7 +63,12 @@ export function makeServer({ environment = 'test' } = {}) {
     routes() {
       this.namespace = 'api';
 
-      this.get('tasks');
+      this.get('/tasks');
+
+      this.post('/add', (schema, request) => {
+        const body = JSON.parse(request.requestBody);
+        console.log({body});
+      });
     },
   });
 }

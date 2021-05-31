@@ -1,3 +1,14 @@
+import React from 'react';
+
+export type ButtonProps = {
+  children: React.ReactNode;
+  type?: 'button' | 'submit';
+  style?: 'primary' | 'secondary' | 'success';
+  outline?: boolean;
+  icon?: React.ReactNode;
+  onClick(event: React.MouseEvent<HTMLButtonElement>): void;
+};
+
 export type CostProps = {
   startedAt?: number;
   finishedAt?: number;

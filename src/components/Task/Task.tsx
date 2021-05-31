@@ -34,9 +34,16 @@ export const Task: React.FunctionComponent<TaskType> = ({
       }
     </div>
 
-    <div className="d-flex align-items-center">
-      <Button>123</Button>
-    </div>
+    {Boolean(!finishedAt) &&
+      <div className="d-flex align-items-center">
+        <Button
+          style={Boolean(startedAt) ? "success" : "primary"}
+          onClick={() => {}}
+        >
+          {Boolean(startedAt) ? 'Resolve' : 'Start'}
+        </Button>
+      </div>
+    }
   </article>
 );
 

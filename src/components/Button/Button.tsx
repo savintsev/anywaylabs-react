@@ -1,9 +1,31 @@
 import React from 'react';
 
-export const Button: React.FunctionComponent = ({ children }) => (
-  <button type="button" className="btn btn-primary btn-sm">
-    {children}
-  </button>
-);
+import { ButtonProps } from '../../types';
+
+export const Button: React.FunctionComponent<ButtonProps> = ({
+  children,
+  type = 'button',
+  style = 'primary',
+  outline = false,
+  icon,
+  onClick
+}) => {
+  const className = `
+    btn
+    btn-sm
+    btn${outline ? '-outline' : ''}-${style}
+  `;
+
+  return (
+    <button
+      type={type}
+      className={className}
+      onClick={onClick}
+    >
+      {Boolean(icon) && icon}
+      {children}
+    </button>
+  );
+};
 
 export default Button;
