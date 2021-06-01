@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 
 import {
   Board,
@@ -6,28 +6,28 @@ import {
   LoadingAlert
 } from './components';
 
-import { useTasks } from './helpers';
+import { tasksReducer, tasksInitialState } from './helpers';
 
 import 'bootstrap/dist/css/bootstrap.css';
 
 export const App: React.FunctionComponent = () => {
-  const { tasks, isLoading, error } = useTasks();
+  const [state, dispatch] = useReducer(tasksReducer, tasksInitialState);
 
   return (
     <div className="container p-3 d-flex flex-column">
       <h1 className="fs-6">Anyway Labs Test Project</h1>
       <p className="subtitle"><small>Just some good deeds</small></p>
 
-      {Boolean(error) &&
-        <ErrorAlert message={error?.message} />
+      {Boolean(state.error) &&
+        <ErrorAlert message={state.error?.message} />
       }
 
-      {Boolean(isLoading) &&
+      {Boolean(state.isLoading) &&
         <LoadingAlert />
       }
 
-      {Boolean(tasks) &&
-        <Board tasks={tasks} />
+      {Boolean(state.tasks) &&
+        <Board tasks={state.tasks} />
       }
     </div>
   );

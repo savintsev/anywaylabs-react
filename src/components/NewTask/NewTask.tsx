@@ -2,14 +2,28 @@ import React, { useState } from 'react';
 
 import { Button } from '../';
 
+import { useTasks1 } from '../../helpers';
+
 export const NewTask = () => {
   const [isForm, setIsForm] = useState(false);
+  const [title, setTitle] = useState('');
+  const { addTask, data } = useTasks1(false);
 
   const onNewTask = () => setIsForm(true);
   const onCancelTask = () => setIsForm(false);
 
-  const onSubmit = (event: React.FormEvent) => {
+  const onFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
+    addTask(title);
+
+    console.log({data});
+
+    setIsForm(false);
+  };
+
+  const onTitleChange = (event) => {
+    setTitle(event.target.value);
   };
 
   return (
@@ -18,7 +32,7 @@ export const NewTask = () => {
       className="d-flex flex-column justify-content-start align-items-center py-4"
     >
       {isForm &&
-        <form className="w-100" onSubmit={onSubmit}>
+        <form className="w-100" onSubmit={onFormSubmit}>
           <div className="mb-3">
             <label
               htmlFor="taskTitle"
@@ -32,6 +46,7 @@ export const NewTask = () => {
               className="form-control"
               id="taskTitle"
               aria-describedby="taskHelp"
+              onChange={onTitleChange}
             />
 
             <div id="taskHelp" className="form-text">

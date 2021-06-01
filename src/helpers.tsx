@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import useSWR from 'swr';
 
 import { Task } from './components';
@@ -46,19 +46,26 @@ export const useTasks: TasksHook = () => {
   };
 };
 
-export const useTasks1 = () => {
+export const useTasks1 = (isFetch = false) => {
   const controller = new AbortController();
+  const signal = controller.signal;
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [data, setData] = useState();
-  const [requestOptions, setRequestOptions] = useState({
-    signal: controller.signal,
-  });
+  // const [requestOptions, setRequestOptions] = useState({
+  //   signal,
+  // });
 
-  const fetchData = async () => {
+  const sendRequest = async (requestOptions) => {
     try {
+      setIsLoading(true);
+
       const response = await fetch('/api/tasks', requestOptions);
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
       setData(await response.json());
     } catch (err) {
@@ -68,62 +75,80 @@ export const useTasks1 = () => {
     }
   };
 
-  const addTask = (title: string) => {
-    setRequestOptions(state => ({
-      ...state,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title })
-    }));
+  const taskOperations = {
+    add: (title: string) => {
+      // setRequestOptions(state => ({
+      //   ...state,
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ title })
+      // }));
 
-    fetchData();
-  };
+      sendRequest({
+        signal,
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title })
+      }).then(() => sendRequest({signal}));
+    },
 
-  const startTask = (id: string, isStart: boolean) => {
-    setRequestOptions(state => ({
-      ...state,
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, isStart })
-    }));
+    start: (id: string) => {
+      // setRequestOptions(state => ({
+      //   ...state,
+      //   method: 'PATCH',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ id, isStart: true })
+      // }));
 
-    fetchData();
-  };
+      sendRequest({
+        signal,
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, isStart: true })
+      });
+    },
 
-  const resolveTask = (id: string, isResolve: boolean) => {
-    setRequestOptions(state => ({
-      ...state,
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, isResolve })
-    }));
+    resolve: (id: string) => {
+      // setRequestOptions(state => ({
+      //   ...state,
+      //   method: 'PATCH',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ id, isResolve: true })
+      // }));
 
-    fetchData();
+      sendRequest({
+        signal,
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, isResolve: true })
+      });
+    },
   };
 
   useEffect(() => {
-
-    setIsLoading(true);
-
-    (async () => {
-      try {
-        const response = await fetch('/api/tasks', requestOptions);
-
-        setData(await response.json());
-      } catch (err) {
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    })();
+    if (isFetch) {
+      sendRequest({signal});
+    }
 
     return () => controller?.abort();
-  }, []);
+  }, [isFetch]);
+
+  const addTask = useCallback(
+    (title: string) => taskOperations.add(title), []
+  );
+
+  const startTask = useCallback(
+    (id: string) => taskOperations.start(id), []
+  );
+
+  const resolveTask = useCallback(
+    (id: string) => taskOperations.resolve(id), []
+  );
 
   return {
-    tasks: data?.tasks,
     isLoading,
     error,
+    data,
     addTask,
     startTask,
     resolveTask,
@@ -171,4 +196,26 @@ export const useTimer: TimerHook = startedAt => {
   }, []);
 
   return time;
+};
+
+export const tasksInitialState = {
+  isLoading: false,
+  error: null,
+  tasks: 0
+};
+
+export const tasksReducer = (state, action) => {
+  switch(action.type) {
+    case 'ADD':
+      return 1;
+
+    case 'START':
+      return 2;
+
+    case 'RESOLVE':
+      return 3;
+
+    default:
+      throw new Error('Unknown action type. Check reducer');
+  }
 };

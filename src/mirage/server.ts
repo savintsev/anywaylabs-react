@@ -65,10 +65,22 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.get('/tasks');
 
-      this.post('/add', (schema, request) => {
+      this.post('/tasks', (schema, request) => {
         const body = JSON.parse(request.requestBody);
         console.log({body});
+
+        return schema.tasks.create({
+          createdAt: new Date().getTime(),
+          title: body.title,
+          startedAt: null,
+          finishedAt: null,
+        });
       });
+
+      this.patch('/tasks', (_schema, request) => {
+        const body = JSON.parse(request.requestBody);
+        console.log({body});
+      })
     },
   });
 }
