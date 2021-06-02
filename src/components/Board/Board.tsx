@@ -1,50 +1,45 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
   Panel,
-  NewTask
+  LoadingAlert,
+  ErrorAlert,
 } from '../';
+import { StateContext } from '../../store';
+import { PANELS } from '../../constants';
+import { printTask } from '../../helpers';
 
-import {
-  createdTasks,
-  startedTasks,
-  finishedTasks,
-  printTask
-} from '../../helpers';
+export const Board: React.FunctionComponent = () => {
+  const state = useContext(StateContext);
 
-import { BoardProps } from '../../types';
+  const panelsList = PANELS.map(({ title, filter, controls }, index) => {
+    const panelContent = state.tasks?.filter(filter).map(printTask);
 
-export const Board: React.FunctionComponent<BoardProps> = ({ tasks }) => {
-  const createdItems = tasks && tasks
-    .filter(createdTasks)
-    .map(printTask);
+    return (
+      <Panel
+        key={index}
+        title={title}
+        controls={controls}
+      >
+        {Boolean(state.status === 'idle') &&
+          panelContent
+        }
 
-  const startedItems = tasks && tasks
-    .filter(startedTasks)
-    .map(printTask);
-
-  const finishedItems = tasks && tasks
-    .filter(finishedTasks)
-    .map(printTask);
+        {Boolean(state.status === 'loading') &&
+          <LoadingAlert />
+        }
+      </Panel>
+    );
+  });
 
   return (
     <div role="main" className="row gx-3 flex-grow-1">
-      <Panel
-        title="To do"
-        controls={
-          <NewTask />
-        }
-      >
-        {createdItems}
-      </Panel>
-
-      <Panel title="In progress">
-        {startedItems}
-      </Panel>
-
-      <Panel title="Done">
-        {finishedItems}
-      </Panel>
+      {Boolean(state.error) ? (
+          <ErrorAlert message={state.error?.message} />
+        ) : (
+          panelsList
+        )
+      }
     </div>
   );
 };

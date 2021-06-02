@@ -6,7 +6,7 @@ import {
   Button
 } from '../';
 
-import { useTasks1 } from '../../helpers';
+import {  } from '../../helpers';
 
 import { TaskType } from '../../types';
 
@@ -17,13 +17,17 @@ export const Task: React.FunctionComponent<TaskType> = ({
   startedAt,
   finishedAt
 }) => {
-  const { startTask, resolveTask } = useTasks1(false);
-
   const isCreated = Boolean(createdAt);
   const isStarted = Boolean(startedAt);
   const isFinished = Boolean(finishedAt);
 
-  const onButtonClick = () => isStarted ? resolveTask(id) : startTask(id);
+  const onButtonClick = () => {
+    if (isStarted) {
+      dispatch({ type: 'RESOLVE', payload: id });
+    } else {
+      dispatch({ type: 'START', payload: id });
+    }
+  };
 
   return (
     <article className="task d-flex border bg-white shadow-sm rounded mb-2 p-2">

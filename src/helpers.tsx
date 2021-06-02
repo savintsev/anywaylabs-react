@@ -11,11 +11,11 @@ import {
   TimerHook,
 } from './types';
 
-export const createdTasks: TasksFilter = task => Boolean(task.createdAt && !task.startedAt && !task.finishedAt);
+export const createdTasks: ITasksFilter = task => Boolean(task.createdAt && !task.startedAt && !task.finishedAt);
 
-export const startedTasks: TasksFilter = task => Boolean(task.createdAt && task.startedAt && !task.finishedAt);
+export const startedTasks: ITasksFilter = task => Boolean(task.createdAt && task.startedAt && !task.finishedAt);
 
-export const finishedTasks: TasksFilter = task => Boolean(task.createdAt && task.startedAt && task.finishedAt);
+export const finishedTasks: ITasksFilter = task => Boolean(task.createdAt && task.startedAt && task.finishedAt);
 
 export const printTask: TaskPrinter = ({
   id,
@@ -198,24 +198,18 @@ export const useTimer: TimerHook = startedAt => {
   return time;
 };
 
-export const tasksInitialState = {
-  isLoading: false,
-  error: null,
-  tasks: 0
-};
+// export const tasksReducer = (state, action) => {
+//   switch(action.type) {
+//     case 'ADD':
+//       return 1;
 
-export const tasksReducer = (state, action) => {
-  switch(action.type) {
-    case 'ADD':
-      return 1;
+//     case 'START':
+//       return 2;
 
-    case 'START':
-      return 2;
+//     case 'RESOLVE':
+//       return 3;
 
-    case 'RESOLVE':
-      return 3;
-
-    default:
-      throw new Error('Unknown action type. Check reducer');
-  }
-};
+//     default:
+//       return state;
+//   }
+// };

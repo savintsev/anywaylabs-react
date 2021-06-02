@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 
 import { Button } from '../';
 
-import { useTasks1 } from '../../helpers';
+import {  } from '../../helpers';
 
 export const NewTask = () => {
   const [isForm, setIsForm] = useState(false);
   const [title, setTitle] = useState('');
-  const { addTask, data } = useTasks1(false);
 
   const onNewTask = () => setIsForm(true);
   const onCancelTask = () => setIsForm(false);
@@ -15,11 +14,9 @@ export const NewTask = () => {
   const onFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    addTask(title);
-
-    console.log({data});
-
-    setIsForm(false);
+    dispatch({ type: 'ADD', payload: title }).then(() => {
+      setIsForm(false);
+    });
   };
 
   const onTitleChange = (event) => {
