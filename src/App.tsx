@@ -1,9 +1,6 @@
 import React from 'react';
-
 import { AppProvider } from './store';
 import { Board } from './components';
-
-import 'bootstrap/dist/css/bootstrap.css';
 
 export const App: React.FunctionComponent = () => {
   return (
@@ -12,7 +9,7 @@ export const App: React.FunctionComponent = () => {
       <p className="subtitle"><small>Just some good deeds</small></p>
 
       <AppProvider>
-          <Board />
+        <Board />
       </AppProvider>
     </div>
   );

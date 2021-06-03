@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import {
   Timer,
@@ -6,7 +6,7 @@ import {
   Button
 } from '../';
 
-import {  } from '../../helpers';
+import { AppContext } from '../../store';
 
 import { TaskType } from '../../types';
 
@@ -17,15 +17,17 @@ export const Task: React.FunctionComponent<TaskType> = ({
   startedAt,
   finishedAt
 }) => {
+  const { dispatch } = useContext(AppContext);
+
   const isCreated = Boolean(createdAt);
   const isStarted = Boolean(startedAt);
   const isFinished = Boolean(finishedAt);
 
   const onButtonClick = () => {
     if (isStarted) {
-      dispatch({ type: 'RESOLVE', payload: id });
+      dispatch({ type: 'RESOLVE_TASK', payload: id });
     } else {
-      dispatch({ type: 'START', payload: id });
+      dispatch({ type: 'START_TASK', payload: id });
     }
   };
 

@@ -1,23 +1,50 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 
 import {
   Panel,
   LoadingAlert,
   ErrorAlert,
+  NewTask,
 } from '../';
-import { StateContext } from '../../store';
-import { PANELS } from '../../constants';
-import { printTask } from '../../helpers';
+
+import { AppContext } from '../../store';
+
+import {
+  createdTasks,
+  startedTasks,
+  finishedTasks,
+  printTask,
+} from '../../helpers';
+
+const PANELS = [
+  {
+    title: 'To do',
+    filter: createdTasks,
+    controls: <NewTask />,
+  },
+  {
+    title: 'In progress',
+    filter: startedTasks,
+  },
+  {
+    title: 'Done',
+    filter: finishedTasks,
+  },
+];
 
 export const Board: React.FunctionComponent = () => {
-  const state = useContext(StateContext);
+  const { state, dispatch } = useContext(AppContext);
 
-  const panelsList = PANELS.map(({ title, filter, controls }, index) => {
-    const panelContent = state.tasks?.filter(filter).map(printTask);
+  useEffect(() => {
+    dispatch({type: 'FETCH_TASKS'});
+  }, []);
+
+  const panelsList = PANELS.map(({ title, filter, controls }) => {
+    const panelContent = state && state.tasks?.filter(filter).map(printTask);
 
     return (
       <Panel
-        key={index}
+        key={title}
         title={title}
         controls={controls}
       >
@@ -31,6 +58,7 @@ export const Board: React.FunctionComponent = () => {
       </Panel>
     );
   });
+
 
   return (
     <div role="main" className="row gx-3 flex-grow-1">

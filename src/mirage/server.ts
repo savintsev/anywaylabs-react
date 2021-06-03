@@ -67,7 +67,6 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.post('/tasks', (schema, request) => {
         const body = JSON.parse(request.requestBody);
-        console.log({body});
 
         return schema.tasks.create({
           createdAt: new Date().getTime(),
@@ -77,9 +76,17 @@ export function makeServer({ environment = 'test' } = {}) {
         });
       });
 
-      this.patch('/tasks', (_schema, request) => {
+      this.patch('/tasks', (schema, request) => {
         const body = JSON.parse(request.requestBody);
-        console.log({body});
+        const id = body.id;
+        const task = schema.tasks.find(id);
+
+        if (body.isStart) {
+          return task.update({startedAt: new Date().getTime()});
+        }
+        if (body.isResolve) {
+          return task.update({finishedAt: new Date().getTime()});
+        }
       })
     },
   });

@@ -5,14 +5,8 @@ import App from './App';
 
 import { makeServer } from './mirage/server';
 
+import 'bootstrap/dist/css/bootstrap.css';
 import './assets/main.css';
-
-/* mirage.js fake api  */
-declare const process: {
-  env: {
-    NODE_ENV: string
-  }
-};
 
 const environment = process.env.NODE_ENV;
 

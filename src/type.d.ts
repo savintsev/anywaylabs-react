@@ -6,10 +6,16 @@ type TaskType = {
   finishedAt: number | null;
 };
 
-type StateType = {
+type StateItemType = {
   tasks: TaskType[] | null;
   status: 'idle' | 'loading' | 'failed';
   error: Error | null;
+};
+
+type StateType = {
+  created: StateItemType;
+  started: StateItemType;
+  finished: StateItemType;
 };
 
 interface ITasksFilter {

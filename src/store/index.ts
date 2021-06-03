@@ -1,4 +1,5 @@
-export { default as initialState } from './initialState';
+export { default as AppContext } from './AppContext';
 export { default as AppProvider } from './AppProvider';
-export { StateContext as StateContext } from './context';
-export { DispatchContext as DispatchContext } from './context';
+export { default as initialState } from './initialState';
+export { reducer as reducer } from './reducer';
+export { asyncActionHandlers as asyncActionHandlers } from './reducer';

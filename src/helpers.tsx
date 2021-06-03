@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import useSWR from 'swr';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import { useReducerAsync } from 'use-reducer-async';
 
 import { Task } from './components';
 
@@ -213,3 +213,27 @@ export const useTimer: TimerHook = startedAt => {
 //       return state;
 //   }
 // };
+
+export const useDataAPI = () => {
+  const dataReducer = (state, action) => {
+    switch (action.type) {
+      case 'a1':
+        return {...state, status: 'a1'};
+      case 'a2':
+        return {...state, status: 'a2'};
+      default:
+        return state;
+    }
+  };
+
+  const initialState = {
+    tasks: [],
+    status: 'idle',
+    error: null,
+  };
+
+  const [state, dispatch] = useReducerAsync(reducer, initialState, asyncActionHandlers);
+
+  return [state, dispatch];
+};
+
