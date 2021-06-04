@@ -1,10 +1,12 @@
 import * as React from 'react';
 
 import { RUB_PER_HOUR } from '../../constants';
+import { CostProps } from '../../type';
 
-import { CostProps } from '../../types';
-
-export const Cost: React.FunctionComponent<CostProps> = ({ startedAt, finishedAt }) => {
+export const Cost: React.FunctionComponent<CostProps> = ({
+  startedAt,
+  finishedAt
+}) => {
   if (!startedAt || !finishedAt) {
     return null;
   }

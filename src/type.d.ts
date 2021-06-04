@@ -1,3 +1,6 @@
+import React from 'react';
+import { Actions } from './constants';
+
 type TaskType = {
   id: string;
   title: string;
@@ -8,7 +11,7 @@ type TaskType = {
 
 type StateItemType = {
   tasks: TaskType[] | null;
-  status: 'idle' | 'loading' | 'failed';
+  status: string;
   error: Error | null;
 };
 
@@ -31,4 +34,37 @@ type ActionMap<M extends { [index: string]: any }> = {
         type: Key;
         payload: M[Key];
       }
+};
+
+type TaskPayload = {
+  [Actions.fetch]: {};
+  [Actions.add]: {
+    title: string;
+  };
+  [Actions.start]: {
+    id: string;
+    isStart: boolean;
+  };
+  [Actions.resolve]: {
+    id: string;
+    isResolve: boolean;
+  };
+};
+
+type TaskActions = ActionMap<TaskPayload>[keyof ActionMap<
+  TaskPayload
+>];
+
+type ButtonProps = {
+  children: React.ReactNode;
+  type?: 'button' | 'submit';
+  style?: 'primary' | 'secondary' | 'success';
+  outline?: boolean;
+  icon?: React.ReactNode;
+  onClick(event: React.MouseEvent<HTMLButtonElement>): void;
+};
+
+type CostProps = {
+  startedAt?: number;
+  finishedAt?: number;
 };

@@ -6,9 +6,11 @@ import {
   Button
 } from '../';
 
-import { AppContext } from '../../store';
+import { AppContext } from '../../store/context';
 
 import { TaskType } from '../../types';
+
+import { Actions } from '../../constants';
 
 export const Task: React.FunctionComponent<TaskType> = ({
   id,
@@ -25,9 +27,9 @@ export const Task: React.FunctionComponent<TaskType> = ({
 
   const onButtonClick = () => {
     if (isStarted) {
-      dispatch({ type: 'RESOLVE_TASK', payload: id });
+      dispatch({ type: Actions.resolve, payload: id });
     } else {
-      dispatch({ type: 'START_TASK', payload: id });
+      dispatch({ type: Actions.start, payload: id });
     }
   };
 

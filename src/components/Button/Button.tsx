@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ButtonProps } from '../../types';
+import { ButtonProps } from '../../type';
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
   children,

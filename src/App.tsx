@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppProvider } from './store';
+import { AppProvider } from './store/context';
 import { Board } from './components';
 
 export const App: React.FunctionComponent = () => {

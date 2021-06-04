@@ -2,11 +2,14 @@ import React, { useState, useContext } from 'react';
 
 import { Button } from '../';
 
-import { AppContext } from '../../store';
+import { AppContext } from '../../store/context';
+
+import { Actions } from '../../constants';
 
 export const NewTask = () => {
   const [isForm, setIsForm] = useState(false);
   const [title, setTitle] = useState('');
+
   const { dispatch } = useContext(AppContext);
 
   const onNewTask = () => setIsForm(true);
@@ -15,7 +18,9 @@ export const NewTask = () => {
   const onFormSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
-    dispatch({ type: 'ADD_TASK', payload: title });
+    dispatch({ type: Actions.add, payload: title });
+
+    setIsForm(false);
   };
 
   const onTitleChange = (event) => {

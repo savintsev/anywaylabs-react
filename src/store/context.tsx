@@ -1,12 +1,19 @@
-import React from 'react';
+import React, {Dispatch, createContext} from 'react';
 import { useReducerAsync } from 'use-reducer-async';
 
 import {
   reducer,
   initialState,
-  asyncActionHandlers,
-  AppContext,
+  asyncActionHandlers
 } from './';
+
+export const AppContext = createContext<{
+  state: StateType;
+  dispatch: Dispatch<TaskActions>;
+}>({
+  state: initialState,
+  dispatch: () => null
+});
 
 export const AppProvider: React.FunctionComponent = ({ children }) => {
   const [state, dispatch] = useReducerAsync(
@@ -22,4 +29,7 @@ export const AppProvider: React.FunctionComponent = ({ children }) => {
   );
 };
 
-export default AppProvider;
+export default {
+  AppProvider,
+  AppContext,
+};

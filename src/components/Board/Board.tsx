@@ -1,73 +1,53 @@
 import React, { useContext, useEffect } from 'react';
 
+import { AppContext } from '../../store/context';
 import {
   Panel,
   LoadingAlert,
   ErrorAlert,
   NewTask,
 } from '../';
-
-import { AppContext } from '../../store';
-
+import { printTask } from '../../helpers';
 import {
-  createdTasks,
-  startedTasks,
-  finishedTasks,
-  printTask,
-} from '../../helpers';
-
-const PANELS = [
-  {
-    title: 'To do',
-    filter: createdTasks,
-    controls: <NewTask />,
-  },
-  {
-    title: 'In progress',
-    filter: startedTasks,
-  },
-  {
-    title: 'Done',
-    filter: finishedTasks,
-  },
-];
+  Actions,
+  Statuses,
+  Panels,
+} from '../../constants';
 
 export const Board: React.FunctionComponent = () => {
   const { state, dispatch } = useContext(AppContext);
 
   useEffect(() => {
-    dispatch({type: 'FETCH_TASKS'});
+    dispatch({ type: Actions.fetch });
   }, []);
 
-  const panelsList = PANELS.map(({ title, filter, controls }) => {
-    const panelContent = state && state.tasks?.filter(filter).map(printTask);
+  const panelsList = Object.entries(Panels).map(([key, value]) => {
+    const panelTasks = state[key].tasks?.map(printTask);
 
     return (
       <Panel
-        key={title}
-        title={title}
-        controls={controls}
+        key={key}
+        title={value}
+        controls={key === 'created' && <NewTask />}
       >
-        {Boolean(state.status === 'idle') &&
-          panelContent
+        {state[key].status === Statuses.idle &&
+          panelTasks
         }
 
-        {Boolean(state.status === 'loading') &&
+        {state[key].status === Statuses.loading &&
           <LoadingAlert />
+        }
+
+        {state[key].status === Statuses.fail &&
+          <ErrorAlert message={state[key].error?.message} />
         }
       </Panel>
     );
   });
 
-
   return (
     <div role="main" className="row gx-3 flex-grow-1">
-      {Boolean(state.error) ? (
-          <ErrorAlert message={state.error?.message} />
-        ) : (
-          panelsList
-        )
-      }
+      {Boolean(state) && panelsList}
     </div>
   );
 };
