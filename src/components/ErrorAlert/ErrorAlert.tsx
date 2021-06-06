@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { ErrorAlertProps } from '../../types';
+import { ErrorAlertProps } from '../../type';
 
 export const ErrorAlert: React.FunctionComponent<ErrorAlertProps> = ({ message }) => (
   <div className="alert alert-danger" role="alert">

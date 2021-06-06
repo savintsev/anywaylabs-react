@@ -1,3 +1,7 @@
+html {
+  font-size: 14px;
+}
+
 body {
   color: #252a2f;
 }
@@ -21,6 +25,10 @@ body {
   border-color: #eaecf0 !important;
 }
 
+.panel__controls {
+  background: linear-gradient(180deg, rgba(246,248,250,0) 0%, rgba(246,248,250,1) 15%);
+}
+
 .counter {
   width: 20px;
   font-size: 0.8125em;
@@ -38,4 +46,29 @@ body {
 .timer,
 .cost {
   color: #6b747d;
+}
+
+.loading {
+  pointer-events: none;
+}
+
+.loading__icon {
+  opacity: 0.5;
+}
+
+.loading__title {
+  height: 1.15rem;
+  background: #f6f8fa;
+}
+
+.loading__meta {
+  width: 50%;
+  height: 1rem;
+  background: #f6f8fa;
+}
+
+.loading__button {
+  width: 4.28rem;
+  height: 1.9rem;
+  background: #f6f8fa;
 }

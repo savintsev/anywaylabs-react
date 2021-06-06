@@ -1,6 +1,5 @@
 import React, { Children } from 'react';
-
-import { PanelProps } from '../../types';
+import { PanelProps } from '../../type';
 
 export const Panel: React.FunctionComponent<PanelProps> = ({
   title,
@@ -32,7 +31,10 @@ export const Panel: React.FunctionComponent<PanelProps> = ({
         }
 
         {Boolean(controls) &&
-          <div role="complementary" className="position-sticky bottom-0">
+          <div
+            role="complementary"
+            className="panel__controls position-sticky bottom-0"
+          >
             {controls}
           </div>
         }

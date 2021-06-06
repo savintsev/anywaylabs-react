@@ -1,9 +1,7 @@
 import React, { useState, useContext } from 'react';
 
-import { Button } from '../';
-
 import { AppContext } from '../../store/context';
-
+import { Button } from '../';
 import { Actions } from '../../constants';
 
 export const NewTask = () => {
@@ -15,7 +13,7 @@ export const NewTask = () => {
   const onNewTask = () => setIsForm(true);
   const onCancelTask = () => setIsForm(false);
 
-  const onFormSubmit = (event: React.FormEvent) => {
+  const onFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     dispatch({ type: Actions.add, payload: title });
@@ -23,7 +21,7 @@ export const NewTask = () => {
     setIsForm(false);
   };
 
-  const onTitleChange = (event) => {
+  const onTitleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setTitle(event.target.value);
   };
 
@@ -58,7 +56,8 @@ export const NewTask = () => {
           <div className="d-flex justify-content-between">
             <Button
               type="button"
-              style="secondary"
+              style="dark"
+              outline
               onClick={onCancelTask}
             >
               Cancel
@@ -77,7 +76,7 @@ export const NewTask = () => {
 
       {!isForm &&
         <Button
-          style="secondary"
+          style="dark"
           outline
           icon={
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-plus" viewBox="0 0 16 16">

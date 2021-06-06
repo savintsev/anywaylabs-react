@@ -1,4 +1,4 @@
-import React, {Dispatch, createContext} from 'react';
+import React, { Dispatch, createContext } from 'react';
 import { useReducerAsync } from 'use-reducer-async';
 
 import {
@@ -6,6 +6,7 @@ import {
   initialState,
   asyncActionHandlers
 } from './';
+import { StateType, TaskActions } from '../type';
 
 export const AppContext = createContext<{
   state: StateType;

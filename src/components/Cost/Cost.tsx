@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import { RUB_PER_HOUR } from '../../constants';
 import { CostProps } from '../../type';
 

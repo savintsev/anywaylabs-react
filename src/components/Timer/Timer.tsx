@@ -1,8 +1,6 @@
 import React from 'react';
-
 import { useTimer } from '../../helpers';
-
-import { TimerProps } from '../../types';
+import { TimerProps } from '../../type';
 
 export const Timer: React.FunctionComponent<TimerProps> = ({ startedAt }) => {
   if (!startedAt) {

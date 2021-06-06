@@ -1,3 +1,5 @@
+import { StateType } from "../type";
+
 export const initialState: StateType = {
   created: {
     tasks: [],

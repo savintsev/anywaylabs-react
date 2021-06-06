@@ -12,7 +12,7 @@ import {
   randomEmoji,
 } from './helpers';
 
-import { TaskType } from '../types';
+import { TaskType } from '../type';
 
 type FactoryParams<Data> = {
   [key in keyof Partial<Data>]: () => Data[key];

@@ -10,7 +10,7 @@ describe('<Cost />', () => {
 
     const wrapper = shallow(<Cost startedAt={startDate} finishedAt={finishDate} />);
 
-    expect(wrapper.find('span').text()).toMatch(
+    expect(wrapper.find('small').text()).toMatch(
       new Intl.NumberFormat(
         'ru-RU',
         {

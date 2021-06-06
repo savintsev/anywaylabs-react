@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { AppContext } from '../../store/context';
 import {
   Panel,
-  LoadingAlert,
+  Loading,
   ErrorAlert,
   NewTask,
 } from '../';
@@ -35,7 +35,7 @@ export const Board: React.FunctionComponent = () => {
         }
 
         {state[key].status === Statuses.loading &&
-          <LoadingAlert />
+          <Loading count={state[key].tasks?.length} />
         }
 
         {state[key].status === Statuses.fail &&

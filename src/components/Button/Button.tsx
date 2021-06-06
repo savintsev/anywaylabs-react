@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { ButtonProps } from '../../type';
 
 export const Button: React.FunctionComponent<ButtonProps> = ({

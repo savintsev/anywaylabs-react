@@ -58,13 +58,31 @@ type TaskActions = ActionMap<TaskPayload>[keyof ActionMap<
 type ButtonProps = {
   children: React.ReactNode;
   type?: 'button' | 'submit';
-  style?: 'primary' | 'secondary' | 'success';
+  style?: 'primary' | 'dark' | 'success';
   outline?: boolean;
   icon?: React.ReactNode;
   onClick(event: React.MouseEvent<HTMLButtonElement>): void;
 };
 
 type CostProps = {
-  startedAt?: number;
-  finishedAt?: number;
+  startedAt?: number | null;
+  finishedAt?: number | null;
+};
+
+type ErrorAlertProps = {
+  message?: string;
+};
+
+type LoadingProps = {
+  count?: number;
+};
+
+type PanelProps = {
+  title: string;
+  children?: React.ReactNode;
+  controls?: React.ReactNode;
+};
+
+type TimerProps = {
+  startedAt?: number | null;
 };
