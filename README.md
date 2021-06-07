@@ -19,5 +19,6 @@
 * Сервер сделан с помощью [Mirage.js](https://miragejs.com/). Описание находится в папке `/src/mirage/server`.
 * Для сборки используется [Vite.js](https://vitejs.dev/).
 * Для рендера используется React: функциональные компоненты, TypeScript.
+* Для стора используется useReducer с асинхронными функциями с помощью [use-reducer-async](https://github.com/dai-shi/use-reducer-async).
 * Для оформления используется [Bootstrap 5](https://getbootstrap.com/).
 * Подключен eslint для линтинга и jest для тестов.
