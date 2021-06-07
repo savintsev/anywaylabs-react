@@ -4,6 +4,7 @@ import { AsyncActionHandlers } from 'use-reducer-async';
 import {
   Actions,
   API_URL,
+  Statuses,
   TaskStatuses,
 } from '../constants';
 import {
@@ -23,17 +24,17 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
     return {
       [TaskStatuses.created]: {
         ...state[TaskStatuses.created],
-        status: 'loading',
+        status: Statuses.loading,
       },
 
       [TaskStatuses.started]: {
         ...state[TaskStatuses.started],
-        status: 'loading',
+        status: Statuses.loading,
       },
 
       [TaskStatuses.finished]: {
         ...state[TaskStatuses.finished],
-        status: 'loading',
+        status: Statuses.loading,
       },
     };
   }
@@ -45,19 +46,19 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
       [TaskStatuses.created]: {
         ...state[TaskStatuses.created],
         tasks: allTasks.filter(createdTasks),
-        status: 'idle',
+        status: Statuses.idle,
       },
 
       [TaskStatuses.started]: {
         ...state[TaskStatuses.started],
         tasks: allTasks.filter(startedTasks),
-        status: 'idle',
+        status: Statuses.idle,
       },
 
       [TaskStatuses.finished]: {
         ...state[TaskStatuses.finished],
         tasks: allTasks.filter(finishedTasks),
-        status: 'idle',
+        status: Statuses.idle,
       },
     };
   }
@@ -68,19 +69,19 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
     return {
       [TaskStatuses.created]: {
         ...state[TaskStatuses.created],
-        status: 'fail',
+        status: Statuses.fail,
         error,
       },
 
       [TaskStatuses.started]: {
         ...state[TaskStatuses.started],
-        status: 'fail',
+        status: Statuses.fail,
         error,
       },
 
       [TaskStatuses.finished]: {
         ...state[TaskStatuses.finished],
-        status: 'fail',
+        status: Statuses.fail,
         error,
       },
     };
@@ -92,7 +93,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
 
       [TaskStatuses.created]: {
         ...state[TaskStatuses.created],
-        status: 'loading',
+        status: Statuses.loading,
       },
     };
   }
@@ -107,7 +108,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
           ...state[TaskStatuses.created].tasks,
           action.task
         ],
-        status: 'idle',
+        status: Statuses.idle,
       },
     };
   }
@@ -118,7 +119,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
 
       [TaskStatuses.created]: {
         ...state[TaskStatuses.created],
-        status: 'fail',
+        status: Statuses.fail,
         error: action.error,
       },
     };
@@ -130,12 +131,12 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
 
       [TaskStatuses.created]: {
         ...state[TaskStatuses.created],
-        status: 'loading',
+        status: Statuses.loading,
       },
 
       [TaskStatuses.started]: {
         ...state[TaskStatuses.started],
-        status: 'loading',
+        status: Statuses.loading,
       }
     };
   }
@@ -152,7 +153,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
       [TaskStatuses.created]: {
         ...state[TaskStatuses.created],
         tasks: filteredCreatedTasks,
-        status: 'idle',
+        status: Statuses.idle,
       },
 
       [TaskStatuses.started]: {
@@ -161,7 +162,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
           ...state[TaskStatuses.started].tasks,
           startedTask,
         ],
-        status: 'idle',
+        status: Statuses.idle,
       },
     };
   }
@@ -172,7 +173,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
 
       [TaskStatuses.started]: {
         ...state[TaskStatuses.started],
-        status: 'fail',
+        status: Statuses.fail,
         error: action.error,
       },
     };
@@ -184,12 +185,12 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
 
       [TaskStatuses.started]: {
         ...state[TaskStatuses.started],
-        status: 'loading',
+        status: Statuses.loading,
       },
 
       [TaskStatuses.finished]: {
         ...state[TaskStatuses.finished],
-        status: 'loading',
+        status: Statuses.loading,
       }
     };
   }
@@ -206,7 +207,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
       [TaskStatuses.started]: {
         ...state[TaskStatuses.started],
         tasks: filteredStartedTasks,
-        status: 'idle',
+        status: Statuses.idle,
       },
 
       [TaskStatuses.finished]: {
@@ -215,7 +216,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
           ...state[TaskStatuses.finished].tasks,
           finishedTask,
         ],
-        status: 'idle',
+        status: Statuses.idle,
       },
     };
   }
@@ -226,7 +227,7 @@ export const reducer: Reducer<StateType, ActionType> = (state, action) => {
 
       [TaskStatuses.finished]: {
         ...state[TaskStatuses.finished],
-        status: 'fail',
+        status: Statuses.fail,
         error: action.error,
       },
     };
