@@ -24,11 +24,10 @@ export const Task: React.FunctionComponent<TaskType> = ({
   const isFinished = Boolean(finishedAt);
 
   const onButtonClick = () => {
-    if (isStarted) {
-      dispatch({ type: Actions.resolve, payload: id });
-    } else {
-      dispatch({ type: Actions.start, payload: id });
-    }
+    dispatch({
+      type: isStarted ? Actions.resolve : Actions.start,
+      id,
+    });
   };
 
   return (
@@ -54,7 +53,7 @@ export const Task: React.FunctionComponent<TaskType> = ({
       {!isFinished &&
         <div className="d-flex align-items-center">
           <Button
-            style={isStarted ? "success" : "primary"}
+            style={isStarted ? 'success' : 'primary'}
             onClick={onButtonClick}
           >
             {isStarted ? 'Resolve' : 'Start'}

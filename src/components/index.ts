@@ -1,6 +1,7 @@
 export { default as Board } from './Board/Board';
 export { default as Button } from './Button/Button';
 export { default as Cost } from './Cost/Cost';
+export { default as Counter } from './Counter/Counter';
 export { default as ErrorAlert } from './ErrorAlert/ErrorAlert';
 export { default as Loading } from './Loading/Loading';
 export { default as NewTask } from './NewTask/NewTask';

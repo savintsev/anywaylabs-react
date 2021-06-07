@@ -78,16 +78,18 @@ export function makeServer({ environment = 'test' } = {}) {
 
       this.patch('/tasks', (schema, request) => {
         const body = JSON.parse(request.requestBody);
-        const id = body.id;
+        const { id } = body;
         const task = schema.tasks.find(id);
 
         if (body.isStart) {
-          return task.update({startedAt: new Date().getTime()});
+          return task.update({ startedAt: new Date().getTime() });
         }
         if (body.isResolve) {
-          return task.update({finishedAt: new Date().getTime()});
+          return task.update({ finishedAt: new Date().getTime() });
         }
-      })
+
+        return null;
+      });
     },
   });
 }

@@ -12,7 +12,9 @@ import {
   Actions,
   Statuses,
   Panels,
+  TaskStatuses,
 } from '../../constants';
+import { PanelType } from '../../type';
 
 export const Board: React.FunctionComponent = () => {
   const { state, dispatch } = useContext(AppContext);
@@ -21,25 +23,27 @@ export const Board: React.FunctionComponent = () => {
     dispatch({ type: Actions.fetch });
   }, []);
 
-  const panelsList = Object.entries(Panels).map(([key, value]) => {
-    const panelTasks = state[key].tasks?.map(printTask);
+  const panelsList = Object.entries(Panels).map(panel => {
+    const [key, value] = panel as PanelType;
+    const currentPanel = state[key];
+    const panelTasks = currentPanel.tasks?.map(printTask);
 
     return (
       <Panel
         key={key}
         title={value}
-        controls={key === 'created' && <NewTask />}
+        controls={key === TaskStatuses.created && <NewTask />}
       >
-        {state[key].status === Statuses.idle &&
+        {currentPanel.status === Statuses.idle &&
           panelTasks
         }
 
-        {state[key].status === Statuses.loading &&
-          <Loading count={state[key].tasks?.length} />
+        {currentPanel.status === Statuses.loading &&
+          <Loading count={currentPanel.tasks?.length} />
         }
 
-        {state[key].status === Statuses.fail &&
-          <ErrorAlert message={state[key].error?.message} />
+        {currentPanel.status === Statuses.fail &&
+          <ErrorAlert message={currentPanel.error?.message} />
         }
       </Panel>
     );

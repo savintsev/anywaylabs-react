@@ -3,9 +3,9 @@ import { shallow } from 'enzyme';
 import Loading from './Loading';
 
 describe('<Loading />', () => {
-  it('calculates hours between dates and render cost', () => {
+  it('renders count numbers from params', () => {
     const wrapper = shallow(<Loading count={5} />);
 
-    expect(wrapper.find('div').first().length).toMatch('5');
+    expect(wrapper.find('div').first().children()).toHaveLength(5);
   });
 });

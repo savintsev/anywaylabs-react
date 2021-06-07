@@ -1,4 +1,5 @@
 import React, { Children } from 'react';
+import { Counter } from '../';
 import { PanelProps } from '../../type';
 
 export const Panel: React.FunctionComponent<PanelProps> = ({
@@ -6,18 +7,13 @@ export const Panel: React.FunctionComponent<PanelProps> = ({
   children,
   controls
 }) => {
-  const childrenCount: number = Children.toArray(children).length;
-  const tasksCount: string = childrenCount > 9 ? '9+' : `${childrenCount}`;
+  const childrenCount = Children.toArray(children).length;
 
   return (
     <div className="col d-flex">
       <section className="panel flex-grow-1 p-2 border rounded">
         <header className="d-flex align-items-center mb-2">
-          <span className="counter rounded-circle ratio ratio-1x1 ">
-            <span className="d-inline-flex justify-content-center align-items-center">
-              {tasksCount}
-            </span>
-          </span>
+          <Counter number={childrenCount} />
 
           <h2 className="fs-6 mb-0 ms-2">
             {title}

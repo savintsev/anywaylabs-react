@@ -4,26 +4,28 @@ import { AppContext } from '../../store/context';
 import { Button } from '../';
 import { Actions } from '../../constants';
 
-export const NewTask = () => {
+export const NewTask: React.FunctionComponent = () => {
   const [isForm, setIsForm] = useState(false);
   const [title, setTitle] = useState('');
 
   const { dispatch } = useContext(AppContext);
 
   const onNewTask = () => setIsForm(true);
+  const onAddTask = () => null;
   const onCancelTask = () => setIsForm(false);
 
   const onFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    dispatch({ type: Actions.add, payload: title });
+    dispatch({
+      type: Actions.add,
+      title,
+    });
 
     setIsForm(false);
   };
 
-  const onTitleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
-    setTitle(event.target.value);
-  };
+  const onTitleChange: React.ChangeEventHandler<HTMLInputElement> = event => setTitle(event.target.value);
 
   return (
     <div
@@ -66,7 +68,7 @@ export const NewTask = () => {
             <Button
               type="submit"
               style="primary"
-              onClick={() => {}}
+              onClick={onAddTask}
             >
               Add task
             </Button>
@@ -84,8 +86,8 @@ export const NewTask = () => {
             </svg>
           }
           onClick={onNewTask}
-          >
-            New task
+        >
+          New task
         </Button>
       }
     </div>

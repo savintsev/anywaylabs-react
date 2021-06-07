@@ -1,17 +1,18 @@
-import { StateType } from "../type";
+import { StateType } from '../type';
+import { TaskStatuses } from '../constants';
 
 export const initialState: StateType = {
-  created: {
+  [TaskStatuses.created]: {
     tasks: [],
     status: 'idle',
     error: null,
   },
-  started: {
+  [TaskStatuses.started]: {
     tasks: [],
     status: 'idle',
     error: null,
   },
-  finished: {
+  [TaskStatuses.finished]: {
     tasks: [],
     status: 'idle',
     error: null,
