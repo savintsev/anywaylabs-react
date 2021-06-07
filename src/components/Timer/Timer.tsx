@@ -10,7 +10,10 @@ export const Timer: React.FunctionComponent<TimerProps> = ({ startedAt }) => {
   const { seconds, minutes, hours, days } = useTimer(startedAt);
 
   return (
-    <small className="timer">{days} days {hours}:{minutes}:{seconds}</small>
+    <small className="timer">
+      {days ? `${days} days ` : ''}
+      {hours}:{minutes}:{seconds}
+    </small>
   );
 };
 
