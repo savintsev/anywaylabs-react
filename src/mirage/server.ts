@@ -20,7 +20,7 @@ type FactoryParams<Data> = {
   afterCreate: (task: ModelInstance<Data>, server: Server) => void;
 };
 
-export function makeServer({ environment = 'test' } = {}) {
+export function makeServer({ environment = 'test' } = {}): Server {
   return createServer({
     environment,
 
@@ -68,27 +68,29 @@ export function makeServer({ environment = 'test' } = {}) {
       this.post('/tasks', (schema, request) => {
         const body = JSON.parse(request.requestBody);
 
-        return schema.tasks.create({
-          createdAt: new Date().getTime(),
+        return schema.create('task', {
           title: body.title,
-          startedAt: null,
-          finishedAt: null,
+          createdAt: new Date().getTime() as (number & (() => number)),
         });
       });
 
-      this.patch('/tasks', (schema, request) => {
+      this.patch('/tasks', (schema: any, request) => { /* quick fix mirage.js with any type */
         const body = JSON.parse(request.requestBody);
-        const { id } = body;
-        const task = schema.tasks.find(id);
+        const { id, isStart, isResolve } = body;
+        const task = schema.find('task', id);
 
-        if (body.isStart) {
-          return task.update({ startedAt: new Date().getTime() });
-        }
-        if (body.isResolve) {
-          return task.update({ finishedAt: new Date().getTime() });
+        if (!task) {
+          return null;
         }
 
-        return null;
+        return task.update({
+          ...(isStart && {
+            startedAt: new Date().getTime() as (number & (() => number))
+          }),
+          ...(isResolve && {
+            finishedAt: new Date().getTime() as (number & (() => number))
+          }),
+        });
       });
     },
   });

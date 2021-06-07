@@ -11,4 +11,13 @@
     ```
 1. Запустить веб-сервер
     ```
+    npm run dev
     ```
+1. Проект будет доступен по адресу [localhost:3000](http://localhost:3000)
+
+## Технологии
+* Сервер сделан с помощью [Mirage.js](https://miragejs.com/). Описание находится в папке `/src/mirage/server`.
+* Для сборки используется [Vite.js](https://vitejs.dev/).
+* Для рендера используется React: функциональные компоненты, TypeScript.
+* Для оформления используется [Bootstrap 5](https://getbootstrap.com/).
+* Подключен eslint для линтинга и jest для тестов.

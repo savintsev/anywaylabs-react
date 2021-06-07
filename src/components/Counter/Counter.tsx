@@ -10,7 +10,7 @@ export const Counter: React.FunctionComponent<CountProps> = ({ number }) => {
         {fixedNumber}
       </span>
     </span>
-  )
+  );
 };
 
 export default Counter;
